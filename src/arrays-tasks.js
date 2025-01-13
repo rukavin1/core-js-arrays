@@ -265,7 +265,9 @@ function distinct(arr) {
  *    createNDimensionalArray(1, 1) => [0]
  */
 function createNDimensionalArray(n, size) {
-  
+  let i = 0;
+  let zeroSize = new Array (i.repeat(size));
+  return zeroSize.repeat(n);
 }
 
 /**
@@ -279,8 +281,8 @@ function createNDimensionalArray(n, size) {
  *    flattenArray(['a', ['b', ['c', 'd'], 'e'], 'f']) => ['a', 'b', 'c', 'd', 'e', 'f']
  *    flattenArray([1, 2, 3, 4]) => [1, 2, 3, 4]
  */
-function flattenArray(/* nestedArray */) {
-  throw new Error('Not implemented');
+function flattenArray(nestedArray) {
+  return nestedArray.flat(Infinity);
 }
 
 /**
@@ -512,8 +514,8 @@ function propagateItemsByPositionIndex(/* arr */) {
  *    shiftArray(['a', 'b', 'c', 'd'], -1) => ['b', 'c', 'd', 'a']
  *    shiftArray([10, 20, 30, 40, 50], -3) => [40, 50, 10, 20, 30]
  */
-function shiftArray(/* arr, n */) {
-  throw new Error('Not implemented');
+function shiftArray(arr, n) {
+  return arr.slice( + 1).concat(arr.slice(n - 1))
 }
 
 /**
@@ -529,8 +531,8 @@ function shiftArray(/* arr, n */) {
  *   sortDigitNamesByNumericOrder([ 'nine','eight','nine','eight' ]) => [ 'eight','eight','nine','nine']
  *   sortDigitNamesByNumericOrder([ 'one','one','one','zero' ]) => [ 'zero','one','one','one' ]
  */
-function sortDigitNamesByNumericOrder(/* arr */) {
-  throw new Error('Not implemented');
+function sortDigitNamesByNumericOrder(arr) {
+  return arr.sort();
 }
 
 /**
@@ -552,8 +554,23 @@ function sortDigitNamesByNumericOrder(/* arr */) {
  *   swapHeadAndTail([]) => []
  *
  */
-function swapHeadAndTail(/* arr */) {
-  throw new Error('Not implemented');
+function swapHeadAndTail(arr) {
+  if (arr.length <= 1) {
+    return arr.slice();
+  }
+
+  const mid = Math.floor(arr.length / 2);
+
+  if (arr.length % 2 === 0) {
+    const head = arr.slice(0, mid);
+    const tail = arr.slice(mid);
+    return tail.concat(head);
+  } else {
+    const head = arr.slice(0, mid);
+    const middle = arr[mid]; 
+    const tail = arr.slice(mid + 1);
+    return tail.concat([middle]).concat(head);
+  }
 }
 
 module.exports = {
