@@ -41,7 +41,7 @@ function getIntervalArray(start, end) {
  */
 function sumArrays(arr1, arr2) {
   const minLength = Math.min(arr1.length, arr2.length);
-  return [...Array(minLength).keys()].map((el) => (arr1[el]) + (arr2[el]));
+  return [...Array(minLength).keys()].map((el) => arr1[el] + arr2[el]);
 }
 
 /**
@@ -75,7 +75,10 @@ function findElement(arr, value) {
  *    findAllOccurrences([ true, 0, 1, 'true' ], true) => 1
  */
 function findAllOccurrences(arr, item) {
-  return arr.reduce((count, el) => item === el ? count = count + 1 : count, 0)
+  const result = arr.reduce((count, el) => {
+    return item === el ? count + 1 : count;
+  }, 0);
+  return result;
 }
 
 /**
@@ -123,8 +126,14 @@ function getStringsLength(arr) {
  *   getAverage([ 2, 3, 3 ])  => 2,67
  */
 function getAverage(arr) {
-  const sum = arr.reduce((acc, cur) => acc += cur, 0);
+  if (!arr || arr.length === 0) {
+    return 0;
+  }
+  const sum = arr.reduce((acc, cur) => acc + cur, 0);
   const averageNum = sum / arr.length;
+  if (averageNum.isNaN) {
+    return NaN;
+  }
   return averageNum % 1 !== 0 ? Number(averageNum.toFixed(2)) : averageNum;
 }
 
@@ -166,9 +175,9 @@ function isValueEqualsIndex(arr) {
  * @param {number} index - Specified index.
  *
  * @example
-  *    insertItem([ 1, 3, 4, 5 ], 2, 1)  => [ 1, 2, 3, 4, 5 ]
-  *    insertItem([ 1, 'b', 'c'], 'x', 0) => [ 'x', 1, 'b', 'c' ]
-  */
+ *    insertItem([ 1, 3, 4, 5 ], 2, 1)  => [ 1, 2, 3, 4, 5 ]
+ *    insertItem([ 1, 'b', 'c'], 'x', 0) => [ 'x', 1, 'b', 'c' ]
+ */
 function insertItem(arr, item, index) {
   arr.splice(index, 0, item);
   return arr;
@@ -265,8 +274,8 @@ function distinct(arr) {
  *    createNDimensionalArray(1, 1) => [0]
  */
 function createNDimensionalArray(n, size) {
-  let i = 0;
-  let zeroSize = new Array (i.repeat(size));
+  const integ = 0;
+  const zeroSize = new Array(integ.repeat(size));
   return zeroSize.repeat(n);
 }
 
@@ -515,7 +524,7 @@ function propagateItemsByPositionIndex(/* arr */) {
  *    shiftArray([10, 20, 30, 40, 50], -3) => [40, 50, 10, 20, 30]
  */
 function shiftArray(arr, n) {
-  return arr.slice( + 1).concat(arr.slice(n - 1))
+  return arr.slice(+1).concat(arr.slice(n - 1));
 }
 
 /**
@@ -565,12 +574,11 @@ function swapHeadAndTail(arr) {
     const head = arr.slice(0, mid);
     const tail = arr.slice(mid);
     return tail.concat(head);
-  } else {
-    const head = arr.slice(0, mid);
-    const middle = arr[mid]; 
-    const tail = arr.slice(mid + 1);
-    return tail.concat([middle]).concat(head);
   }
+  const head = arr.slice(0, mid);
+  const middle = arr[mid];
+  const tail = arr.slice(mid + 1);
+  return tail.concat([middle]).concat(head);
 }
 
 module.exports = {
